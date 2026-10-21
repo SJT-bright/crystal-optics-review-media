@@ -21,6 +21,17 @@ QUERY = '?sharecode=A64ZUFQANV'
 TAG = 'v1.0.0'
 MANIFEST = json.loads((ROOT / 'media-manifest.json').read_text())
 LOCAL = threading.local()
+RATE_LOCK = threading.Lock()
+LAST_REQUEST = 0.0
+
+
+def pace():
+    global LAST_REQUEST
+    with RATE_LOCK:
+        delay = 0.125 - (time.monotonic() - LAST_REQUEST)
+        if delay > 0:
+            time.sleep(delay)
+        LAST_REQUEST = time.monotonic()
 
 
 def digest(file):
@@ -57,6 +68,7 @@ def fetch(name):
             h = hashlib.sha256()
             size = 0
             url = BASE + urllib.parse.quote(name, safe='/') + QUERY
+            pace()
             with opener().open(url, timeout=120) as response, temporary.open('wb') as stream:
                 if response.status != 200:
                     raise RuntimeError('Unexpected HTTP status')
@@ -108,7 +120,7 @@ def main():
             batch.append(name)
             size += MANIFEST[name]['bytes']
         sequence += 1
-        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
             for _ in pool.map(fetch, batch):
                 verified += 1
         publish(batch, sequence)
