@@ -142,7 +142,7 @@ def main():
             batch.append(name)
             size += MANIFEST[name]['bytes']
         sequence += 1
-        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=24) as pool:
             for _ in pool.map(fetch, batch):
                 verified += 1
         publish(batch, sequence)
