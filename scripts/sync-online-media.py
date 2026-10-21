@@ -14,6 +14,7 @@ import threading
 import time
 import urllib.parse
 import urllib.request
+import urllib.error
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = 'https://crystal-optics-review.app.workbuddy.host/'
@@ -23,6 +24,7 @@ MANIFEST = json.loads((ROOT / 'media-manifest.json').read_text())
 LOCAL = threading.local()
 RATE_LOCK = threading.Lock()
 LAST_REQUEST = 0.0
+STOP = threading.Event()
 
 
 def pace():
@@ -58,12 +60,17 @@ def opener():
 
 
 def fetch(name):
+    if STOP.is_set():
+        raise RuntimeError('Media mirror stopped')
     if valid(name):
         return name
     dest = ROOT / name
     dest.parent.mkdir(parents=True, exist_ok=True)
     temporary = dest.with_name(dest.name + '.transfer-tmp')
-    for attempt in range(4):
+    failures = 0
+    for attempt in range(180):
+        if STOP.is_set():
+            raise RuntimeError('Media mirror stopped')
         try:
             h = hashlib.sha256()
             size = 0
@@ -82,11 +89,25 @@ def fetch(name):
                 raise RuntimeError('Original media SHA-256 mismatch')
             temporary.replace(dest)
             return name
+        except urllib.error.HTTPError as error:
+            temporary.unlink(missing_ok=True)
+            # The producer is uploading originals in the same order. Wait for a
+            # registered file that has not arrived yet; never alter gateway access.
+            if error.code == 404 and attempt < 179:
+                STOP.wait(5)
+                continue
+            failures += 1
+            if error.code in (401, 403) or failures >= 4 or attempt == 179:
+                STOP.set()
+                raise RuntimeError('Source HTTP ' + str(error.code) + ' for ' + name) from None
+            STOP.wait(2 ** failures)
         except Exception:
             temporary.unlink(missing_ok=True)
-            if attempt == 3:
+            failures += 1
+            if failures >= 4 or attempt == 179:
+                STOP.set()
                 raise RuntimeError('Cannot verify ' + name) from None
-            time.sleep(2 ** attempt)
+            STOP.wait(2 ** failures)
 
 
 def git(*args, **kwargs):
@@ -110,7 +131,8 @@ def main():
             raise SystemExit('Invalid media inventory')
     git('config', 'user.name', 'github-actions[bot]')
     git('config', 'user.email', '41898282+github-actions[bot]@users.noreply.github.com')
-    names = list(MANIFEST)
+    priority = lambda n: (0 if n.startswith('img/seq/863_0/') else 1 if n.startswith('img/hand/') else 2 if n.startswith('img/seq/') else 3, n)
+    names = sorted(MANIFEST, key=priority)
     verified = 0
     sequence = 0
     while names:
