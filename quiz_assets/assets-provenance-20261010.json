@@ -1,0 +1,175 @@
+{
+  "revision": "20261010-content",
+  "created": "2026-10-10",
+  "assetPrefixContract": "data k 可为 app/quiz_assets/...；img(k) 去掉 app/ 前缀。完整包须把 quiz_assets 与 index.html 放在同级。",
+  "newFiles": [
+    {
+      "file": "ics-2023-09-chinese.png",
+      "runtimeRequired": true,
+      "entryIds": [
+        "phys_core_geologic_timescale"
+      ],
+      "sourceUrl": "https://stratigraphy.org/ICSchart/ChronostratChart2023-09Chinese.pdf",
+      "sourceFile": "ics-2023-09-chinese.pdf",
+      "processing": "完整 PDF 第 1 页用 PyMuPDF Matrix(2.5, 2.5) 渲染为 PNG。保留全图，无裁切、合成、重绘。",
+      "version": "2023/09 中文版（不是最新科学版本，题注已明确）",
+      "author": "International Commission on Stratigraphy",
+      "license": "ICS 版权所有；官网公开教学图表",
+      "bytes": 1007875,
+      "sha256": "6047b3ea8d90a179aef35ccdcadcdbee8d1229dd8d003402f1e2e01aa448a5ca",
+      "dimensions": [
+        2977,
+        2252
+      ]
+    },
+    {
+      "file": "ics-2023-09-chinese.pdf",
+      "runtimeRequired": false,
+      "role": "原始资料；随完整包保留以追溯图表来源",
+      "sourceUrl": "https://stratigraphy.org/ICSchart/ChronostratChart2023-09Chinese.pdf",
+      "processing": "官网下载原文，未修改",
+      "bytes": 608275,
+      "sha256": "384810e337f8f5f0e5a8cc268aec66eeec502874be0119f10a03511d2cc65bc5"
+    },
+    {
+      "file": "volcanic-bomb-usgs-2022.jpg",
+      "runtimeRequired": true,
+      "entryIds": [
+        "phys_core_volcanic_products"
+      ],
+      "sourceUrl": "https://www.usgs.gov/media/images/december-2-2022-mauna-loa-lava-bomb",
+      "mediaUrl": "https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/media/images/Bomb%20by%20fissure%20Drew%20Downs%20Dec%202%202022.jpg",
+      "author": "D. Downs / USGS Hawaiian Volcano Observatory",
+      "license": "Public Domain（原页面标注）",
+      "processing": "官方下载原图，未修改",
+      "bytes": 1929170,
+      "sha256": "804925124495b4ad6754366d9ca552f930945cda70130b4f9c7d571b6ec7ea31",
+      "dimensions": [
+        2016,
+        1512
+      ]
+    },
+    {
+      "file": "aa-lava-usgs.jpg",
+      "runtimeRequired": true,
+      "entryIds": [
+        "phys_core_volcanic_products"
+      ],
+      "sourceUrl": "https://www.usgs.gov/media/images/a-close-aa-flow-texture-showing-fluid-incandescen",
+      "mediaUrl": "https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/vhp_img5762.jpg",
+      "author": "USGS Volcano Hazards Program",
+      "license": "原页面未单列许可，保留原机构与来源；不标成 CC0",
+      "processing": "官方下载原图，未修改",
+      "bytes": 7687829,
+      "sha256": "ee2d9ab754fb98ea910f13ddb676ffd302fb091307acf45f254c2006b2f724d4",
+      "dimensions": [
+        5184,
+        3888
+      ]
+    },
+    {
+      "file": "land-subsidence-usgs-original.png",
+      "runtimeRequired": true,
+      "entryIds": [
+        "phys_core2_subsidence"
+      ],
+      "sourceUrl": "https://water.usgs.gov/ogw/pubs/fs00165/",
+      "sourceFile": "usgs-fs165-00.pdf",
+      "author": "USGS / Joseph F. Poland 研究照片，Richard Ireland 摄影",
+      "license": "Public Domain（USGS 相关照片页面）",
+      "processing": "从 USGS FS 165-00 PDF 第 2 页 Figure 2 原始嵌入图（xref 1218）经 PyMuPDF Pixmap 转换 PDF 原 Lab 色彩空间到 RGB PNG；不裁切、合成、重绘或修改画面",
+      "bytes": 1179984,
+      "sha256": "f34af03f84bb0fde597f6e444f9d33e1c17b4ebe003a4e6c2988c7397fea466f",
+      "dimensions": [
+        519,
+        1157
+      ]
+    },
+    {
+      "file": "usgs-fs165-00.pdf",
+      "runtimeRequired": false,
+      "role": "原始资料；随完整包保留以复核沉降照片",
+      "sourceUrl": "https://water.usgs.gov/ogw/pubs/fs00165/SubsidenceFS.v7.PDF",
+      "processing": "官网下载原文，未修改",
+      "bytes": 4177421,
+      "sha256": "9902870583d17bae0d40e2f0862f21e85e95dc541097b508dd5aa7414a531e2e"
+    }
+  ],
+  "existingFilesReused": [
+    {
+      "path": "img/ext/gapfill1/gf_pumice_01.jpg",
+      "entryIds": [
+        "phys_core_volcanic_products"
+      ],
+      "runtimeRequired": true,
+      "sourceUrl": "https://geodil.dperkins.org/h/415.html",
+      "author": "Mike Davis / GeoDIL #415",
+      "license": "CC0 1.0",
+      "role": "复用已正确的浮岩原照片",
+      "bytes": 386304,
+      "sha256": "1e21ab1dc0e1a1d7d1f440a48ad831f296834f1f3576ae2091bc037b2fdcfa67",
+      "dimensions": [
+        1280,
+        974
+      ]
+    },
+    {
+      "path": "img/ext/phys_core/phys_core_phanerozoic_boundaries.png",
+      "entryIds": [
+        "phys_core_geologic_timescale"
+      ],
+      "runtimeRequired": true,
+      "role": "实际路径由 data_patch.js 中 phys_core_phanerozoic_boundaries.imgs[0] 提取；此处稍后以浏览器回执为准",
+      "source": {
+        "t": "https://commons.wikimedia.org/wiki/File:Geologic_Time_Scale.png",
+        "u": "https://commons.wikimedia.org/wiki/File:Geologic_Time_Scale.png",
+        "a": "Frederik Lerouge",
+        "l": "CC BY-SA 4.0"
+      },
+      "bytes": 608338,
+      "sha256": "79b4dbc1c91490f1568fcc1c726cf9c3849864fe819d284722a119bd4cb9c5d7",
+      "dimensions": [
+        1280,
+        1812
+      ]
+    },
+    {
+      "entryIds": [
+        "phys_core2_subsidence"
+      ],
+      "runtimeRequired": true,
+      "role": "保留原新浦安站液化沉降第二图；为其单独恢复原作者来源，禁止继承第一图的教堂署名",
+      "path": "img/ext/phys_core2/phys_core2_subsidence_02.jpg",
+      "source": {
+        "t": "Subsidence in Shin-Urayasu Sta after 2011 Sendai earthquake.JPG",
+        "u": "https://commons.wikimedia.org/wiki/File:Subsidence_in_Shin-Urayasu_Sta_after_2011_Sendai_earthquake.JPG",
+        "a": "On-chan",
+        "l": "CC0 1.0"
+      },
+      "bytes": 258347,
+      "sha256": "eef8249e1ca9730aebd5990fe9fe3f1b314ac5908bca3e7173ba7bd7e98c6c8a",
+      "dimensions": [
+        1280,
+        960
+      ],
+      "verificationReceipt": "subsidence-second-image-source-receipt.json（诊断证据，不是运行依赖）",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Subsidence_in_Shin-Urayasu_Sta_after_2011_Sendai_earthquake.JPG",
+      "author": "On-chan",
+      "license": "CC0 1.0",
+      "captureDate": "2011-04-01"
+    }
+  ],
+  "runtimeNewFiles": [
+    "ics-2023-09-chinese.png",
+    "volcanic-bomb-usgs-2022.jpg",
+    "aa-lava-usgs.jpg",
+    "land-subsidence-usgs-original.png"
+  ],
+  "sourceOnlyFiles": [
+    "ics-2023-09-chinese.pdf",
+    "usgs-fs165-00.pdf"
+  ],
+  "provenance": "data.js 及原 img 均不覆盖。每条 data_patch 修订保存 original.source/images 与 replacement；manifest 和 PDF 可复现下载/转换。",
+  "validation": "content-assets-test-results.json：Chromium/WebKit 各 7 图完整离线解码、来源链接存在、尺寸匹配、0 页面错误、0 远程依赖",
+  "secondImageAttributionCorrection": "2026-10-10 整合复核：恢复 phys_core2_subsidence 第二图的独立作者/链接/CC0，与原作者发布页、项目采集记录、源照片比对及实际视觉核对共同确认。"
+}
